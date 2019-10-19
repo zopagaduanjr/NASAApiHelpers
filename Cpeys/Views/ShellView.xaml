@@ -10,48 +10,62 @@
         Title="ShellView" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="1"
-                  Margin="0 8 0 0"
-                  ItemsSource="{Binding Path=EventCategories}"
-                  CanUserSortColumns="True"
-                  CanUserAddRows="False"
-                  AutoGenerateColumns="False"
-                  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-                  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
-            <DataGrid.Columns>
-                <DataGridTextColumn
-                    Binding="{Binding Path=title}"
-                    Header="Title"
-                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
-                <materialDesign:MaterialDataGridTextColumn
-                    Binding="{Binding Path=description}"
-                    Header="Description"
-                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <materialDesign:MaterialDataGridTextColumn
-                    Binding="{Binding Path=link}"
-                    Header="Link"
-                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <materialDesign:MaterialDataGridComboBoxColumn
-                    Header="Event"
-                    ItemsSourceBinding="{Binding Path=events, Mode=TwoWay}"
-                    DisplayMemberPath="title"
-                    SelectedItemBinding="{Binding Path=SelectedEvent}"
-                    SelectedValuePath="1"
-                    SelectedValueBinding="{Binding Path=SelectedEvent}"/>
-                <materialDesign:MaterialDataGridComboBoxColumn
-                    Header="Category"
-                    ItemsSourceBinding="{Binding Path=categories, Mode=TwoWay}"
-                    DisplayMemberPath="title"
-                    SelectedItemBinding="{Binding Path=none}"
-                    SelectedValuePath="1"
-                    SelectedValueBinding="{Binding Path=none}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-
+        <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}" Text="NASA API Helpers"/>
+        <ComboBox Grid.Row="1"
+                  Margin="4,0,0,15"
+                  materialDesign:HintAssist.Hint="Events:"
+                  ItemsSource="{Binding Events}"
+                  SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button 
+                            VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            Content="{Binding id}" />
+                        <StackPanel
+                            Margin="8 0 0 0"
+                            Grid.Column="1">
+                            <TextBlock
+                                FontWeight="Bold"
+                                Text="{Binding title}" />
+                            <TextBlock
+                                Text="{Binding description}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock  Text="{Binding Path=category.title}"/>
+                <ListBox  ItemsSource="{Binding Path=Coordinate}"/>
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding Path=EarthObject.url}"/>
+                <TextBlock Grid.Row="1" Text="{Binding Path=EarthObject.url}"></TextBlock>
+                <Button Grid.Row="2" Content="Generate Image" Name="Imager"/>
+                <Button Grid.Row="3" Content="Download Image" Name="ImageLoader"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

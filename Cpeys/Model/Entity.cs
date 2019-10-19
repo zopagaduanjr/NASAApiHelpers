@@ -59,7 +59,15 @@ namespace Cpeys.Model
     {
         public string date { get; set; }
         public string type { get; set; }
-
+        public decimal[] coordinates { get; set; }
     }
 
+    public class EarthObject
+    {
+        public decimal cloud_score { get; set; }
+        public string date { get; set; }
+        public string id { get; set; }
+        public string url { get; set; }
+
+    }
 }
