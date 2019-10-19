@@ -1,0 +1,57 @@
+﻿<Window x:Class="Cpeys.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cpeys.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        
+        Title="ShellView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1"
+                  Margin="0 8 0 0"
+                  ItemsSource="{Binding Path=EventCategories}"
+                  CanUserSortColumns="True"
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding Path=title}"
+                    Header="Title"
+                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                <materialDesign:MaterialDataGridTextColumn
+                    Binding="{Binding Path=description}"
+                    Header="Description"
+                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <materialDesign:MaterialDataGridTextColumn
+                    Binding="{Binding Path=link}"
+                    Header="Link"
+                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <materialDesign:MaterialDataGridComboBoxColumn
+                    Header="Event"
+                    ItemsSourceBinding="{Binding Path=events, Mode=TwoWay}"
+                    DisplayMemberPath="title"
+                    SelectedItemBinding="{Binding Path=SelectedEvent}"
+                    SelectedValuePath="1"
+                    SelectedValueBinding="{Binding Path=SelectedEvent}"/>
+                <materialDesign:MaterialDataGridComboBoxColumn
+                    Header="Category"
+                    ItemsSourceBinding="{Binding Path=categories, Mode=TwoWay}"
+                    DisplayMemberPath="title"
+                    SelectedItemBinding="{Binding Path=none}"
+                    SelectedValuePath="1"
+                    SelectedValueBinding="{Binding Path=none}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</Window>
