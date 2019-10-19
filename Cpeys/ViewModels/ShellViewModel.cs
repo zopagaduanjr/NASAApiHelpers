@@ -57,8 +57,11 @@ namespace Cpeys.ViewModels
                 _selectedEvent = value;
                 category = value.categories.FirstOrDefault();
                 Coordinate = value.geometries.FirstOrDefault().coordinates.ToList();
+                EarthObject = null;
+
                 NotifyOfPropertyChange(() => category);
                 NotifyOfPropertyChange(() => Coordinate);
+                NotifyOfPropertyChange(() => EarthObject);
                 NotifyOfPropertyChange(() => SelectedEvent);
             }
         }
@@ -141,7 +144,7 @@ namespace Cpeys.ViewModels
                 else
                 {
                     var foo =  new EarthObject();
-                    foo.url = "Sorry, EARTH API has no image data from the given latitude and longitude";
+                    foo.url = @"F:\school\5th year\NASASpaceApps\NASAApiHelpers\Cpeys\Media\2488756.jpg";
                     return foo;
                 }
             }
